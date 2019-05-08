@@ -103,6 +103,14 @@ public class Main {
         return spaces;
     }
 
+    public static HashMap<Integer, String> opponentBeta(HashMap<Integer, String> spaces) {
+        if (spaces.containsValue("5")) {
+            spaces.replace(5, "5", "O");
+        }
+
+        return spaces;
+    }
+
     public static String gameState(HashMap<Integer, String> spaces) {
         String win = "ongoing";
 
@@ -160,31 +168,41 @@ public class Main {
 
     public static void main(String[] args) {
 
-        HashMap<Integer, String> spaces = new HashMap<>();
-        spaces.put(1, "1");
-        spaces.put(2, "2");
-        spaces.put(3, "3");
-        spaces.put(4, "4");
-        spaces.put(5, "5");
-        spaces.put(6, "6");
-        spaces.put(7, "7");
-        spaces.put(8, "8");
-        spaces.put(9, "9");
-        draw(spaces);
 
 
-        String win = "ongoing";
-        while(win.equalsIgnoreCase("ongoing")){
-            win = gameState(draw(input(spaces)));
 
-            if (win.equalsIgnoreCase("x")){
-                System.out.println("YOU WIN!");
-            } else if (win.equalsIgnoreCase("o")){
-                System.out.println("You lose.");
+        Scanner scanner = new Scanner(System.in);
+
+        String win;
+        String playAgain = "";
+
+        while(!playAgain.equalsIgnoreCase("n")) {
+            HashMap<Integer, String> spaces = new HashMap<>();
+
+            spaces.put(1, "1");
+            spaces.put(2, "2");
+            spaces.put(3, "3");
+            spaces.put(4, "4");
+            spaces.put(5, "5");
+            spaces.put(6, "6");
+            spaces.put(7, "7");
+            spaces.put(8, "8");
+            spaces.put(9, "9");
+            win = "ongoing";
+            draw(spaces);
+            while (win.equalsIgnoreCase("ongoing")) {
+                win = gameState(draw(input(spaces)));
+
+                if (win.equalsIgnoreCase("x")) {
+                    System.out.println("\nYOU WIN!");
+                } else if (win.equalsIgnoreCase("o")) {
+                    System.out.println("\nYou lose.");
+                }
             }
+            System.out.println("Play Again? (y/n)");
+            playAgain = scanner.nextLine();
+            System.out.println();
         }
-
-
 
     }
 }
